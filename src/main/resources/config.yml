@@ -1,0 +1,24 @@
+food:
+  a:
+    type: COOKED_BEEF
+    name: "§fМЯСО"
+    lore:
+      - "§7Еда для кормления питомцев"
+    craft:
+    # FIRST LINE
+      - AIR
+      - AIR
+      - AIR
+    # SECOND LINE
+      - AIR
+      - AIR
+      - AIR
+    # THIRD LINE
+      - AIR
+      - AIR
+      - AIR
+
+damage: 2
+chance: 80
+
+pets: {}

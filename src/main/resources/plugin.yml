@@ -1,0 +1,4 @@
+name: MyBeautifulPets
+version: '${version}'
+main: me.fortibrine.mybeautifulpets.MyBeautifulPets
+api-version: 1.13
