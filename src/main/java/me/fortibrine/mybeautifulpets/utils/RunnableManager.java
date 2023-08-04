@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class RunnableManager {
@@ -22,16 +23,25 @@ public class RunnableManager {
     }
 
     private void teleportPet() {
-        Map<UUID, List<LivingEntity>> pets = variableManager.getPets();
+        Map<UUID, Set<LivingEntity>> pets = variableManager.getPets();
 
-        for (Map.Entry<UUID, List<LivingEntity>> entry : pets.entrySet()) {
+        for (Map.Entry<UUID, Set<LivingEntity>> entry : pets.entrySet()) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(entry.getKey());
 
             if (!player.isOnline()) continue;
 
-            Player onlinePlayer = Bukkit.getPlayer(entry.getKey());
+            Player onlinePlayer = (Player) player;
 
             for (LivingEntity entity : entry.getValue()) {
+
+                if (entity == null) {
+                    continue;
+                }
+
+                if (entity.getLocation() == null) {
+                    continue;
+                }
+
                 if (onlinePlayer.getLocation().distance(entity.getLocation()) >= 5) {
                     entity.teleport(onlinePlayer.getLocation());
                 }

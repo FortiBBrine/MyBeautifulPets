@@ -10,10 +10,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public final class MyBeautifulPets extends JavaPlugin {
 
@@ -42,10 +39,17 @@ public final class MyBeautifulPets extends JavaPlugin {
 
         FileConfiguration config = this.getConfig();
 
-        for (Map.Entry<UUID, List<LivingEntity>> entry : this.variableManager.getPets().entrySet()) {
+        for (Map.Entry<UUID, Set<LivingEntity>> entry : this.variableManager.getPets().entrySet()) {
 
-            List<UUID> entitiesID = new ArrayList<>();
-            entry.getValue().forEach(entity -> entitiesID.add(entity.getUniqueId()));
+            List<String> entitiesID = new ArrayList<>();
+            entry.getValue().forEach(entity -> {
+
+                if (entity == null) {
+                    return;
+                }
+
+                entitiesID.add(entity.getUniqueId().toString());
+            });
 
             config.set("pets." + entry.getKey(), entitiesID);
 

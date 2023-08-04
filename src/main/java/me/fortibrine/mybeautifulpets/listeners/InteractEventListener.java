@@ -10,9 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class InteractEventListener implements Listener {
 
@@ -38,15 +36,21 @@ public class InteractEventListener implements Listener {
         if (!plugin.getVariableManager().getFoodItems().contains(player.getInventory().getItemInMainHand())) return;
 
         if (random.nextInt(100) < plugin.getConfig().getInt("chance")) {
+
             livingEntity.setAI(false);
 
             VariableManager variableManager = plugin.getVariableManager();
 
+            for (Set<LivingEntity> entities : variableManager.getPets().values())  {
+                if (entities.contains(livingEntity)) {
+                    return;
+                }
+            }
             if (variableManager.getPets().containsKey(player.getUniqueId())) {
-                variableManager.getPets().get(player).add(livingEntity);
+                variableManager.getPets().get(player.getUniqueId()).add(livingEntity);
             } else {
 
-                List<LivingEntity> pets = new ArrayList<>();
+                Set<LivingEntity> pets = new HashSet<>();
                 pets.add(livingEntity);
 
                 variableManager.getPets().put(player.getUniqueId(), pets);
