@@ -37,24 +37,25 @@ public final class MyBeautifulPets extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        FileConfiguration config = this.getConfig();
-
-        for (Map.Entry<UUID, Set<LivingEntity>> entry : this.variableManager.getPets().entrySet()) {
-
-            List<String> entitiesID = new ArrayList<>();
-            entry.getValue().forEach(entity -> {
-
-                if (entity == null) {
-                    return;
-                }
-
-                entitiesID.add(entity.getUniqueId().toString());
-            });
-
-            config.set("pets." + entry.getKey(), entitiesID);
-
-        }
-
-        this.saveConfig();
+//
+//        FileConfiguration config = this.getConfig();
+//
+//        for (Map.Entry<UUID, Set<LivingEntity>> entry : this.variableManager.getPets().entrySet()) {
+//
+//            List<String> entitiesID = new ArrayList<>();
+//            entry.getValue().forEach(entity -> {
+//
+//                if (entity == null) {
+//                    return;
+//                }
+//
+//                entitiesID.add(entity.getUniqueId().toString());
+//            });
+//
+//            config.set("pets." + entry.getKey(), entitiesID);
+//
+//        }
+//
+//        this.saveConfig();
     }
 }

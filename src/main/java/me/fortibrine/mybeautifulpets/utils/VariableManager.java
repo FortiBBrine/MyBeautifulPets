@@ -23,17 +23,17 @@ public class VariableManager {
     public VariableManager(MyBeautifulPets plugin) {
         FileConfiguration config = plugin.getConfig();
 
-        System.out.println(config.getConfigurationSection("pets").getKeys(false).size());
-
-        for (String key : config.getConfigurationSection("pets").getKeys(false)) {
-            List<String> entitiesID = config.getStringList("pets." + key);
-            Set<LivingEntity> livingEntities = new HashSet<>();
-
-            entitiesID.forEach(entity -> livingEntities.add((LivingEntity) Bukkit.getEntity(UUID.fromString(entity))));
-
-            pets.put(UUID.fromString(key), livingEntities);
-
-        }
+//        System.out.println(config.getConfigurationSection("pets").getKeys(false).size());
+//
+//        for (String key : config.getConfigurationSection("pets").getKeys(false)) {
+//            List<String> entitiesID = config.getStringList("pets." + key);
+//            Set<LivingEntity> livingEntities = new HashSet<>();
+//
+//            entitiesID.forEach(entity -> livingEntities.add((LivingEntity) Bukkit.getEntity(UUID.fromString(entity))));
+//
+//            pets.put(UUID.fromString(key), livingEntities);
+//
+//        }
 
         for (String key : config.getConfigurationSection("food").getKeys(false)) {
             ConfigurationSection configurationSection = config.getConfigurationSection("food." + key);
