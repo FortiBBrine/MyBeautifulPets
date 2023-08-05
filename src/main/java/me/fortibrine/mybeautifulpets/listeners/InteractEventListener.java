@@ -55,6 +55,7 @@ public class InteractEventListener implements Listener {
 
                 variableManager.getPets().put(player.getUniqueId(), pets);
             }
+            plugin.getSqlManager().saveMob(player.getUniqueId().toString(), entity.getType());
         } else {
             player.damage(plugin.getConfig().getDouble("damage"));
         }

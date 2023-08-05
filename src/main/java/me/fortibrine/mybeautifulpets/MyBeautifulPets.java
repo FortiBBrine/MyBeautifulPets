@@ -2,15 +2,15 @@ package me.fortibrine.mybeautifulpets;
 
 import lombok.Getter;
 import me.fortibrine.mybeautifulpets.listeners.InteractEventListener;
+import me.fortibrine.mybeautifulpets.listeners.JoinEventListener;
+import me.fortibrine.mybeautifulpets.listeners.LeaveEventListener;
 import me.fortibrine.mybeautifulpets.utils.RunnableManager;
+import me.fortibrine.mybeautifulpets.utils.SQLManager;
 import me.fortibrine.mybeautifulpets.utils.VariableManager;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.*;
 
 public final class MyBeautifulPets extends JavaPlugin {
 
@@ -19,6 +19,9 @@ public final class MyBeautifulPets extends JavaPlugin {
 
     @Getter
     private RunnableManager runnableManager;
+
+    @Getter
+    private SQLManager sqlManager;
 
     @Override
     public void onEnable() {
@@ -30,8 +33,12 @@ public final class MyBeautifulPets extends JavaPlugin {
 
         this.variableManager = new VariableManager(this);
         this.runnableManager = new RunnableManager(this);
+        this.sqlManager = new SQLManager();
 
         Bukkit.getPluginManager().registerEvents(new InteractEventListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new JoinEventListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new LeaveEventListener(this), this);
+
     }
 
     @Override
