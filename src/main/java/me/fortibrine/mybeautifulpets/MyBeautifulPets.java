@@ -37,7 +37,7 @@ public final class MyBeautifulPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new InteractEventListener(this), this);
         Bukkit.getPluginManager().registerEvents(new JoinEventListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new LeaveEв теventListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new LeaveEventListener(this), this);
 
     }
 
