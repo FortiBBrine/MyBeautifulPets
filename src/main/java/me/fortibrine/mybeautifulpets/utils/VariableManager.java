@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,22 +18,10 @@ import java.util.*;
 public class VariableManager {
 
     private List<ItemStack> foodItems = new ArrayList<>();
-    private Map<UUID, Set<LivingEntity>> pets = new HashMap<>();
+    private Map<UUID, Set<Entity>> pets = new HashMap<>();
 
     public VariableManager(MyBeautifulPets plugin) {
         FileConfiguration config = plugin.getConfig();
-
-//        System.out.println(config.getConfigurationSection("pets").getKeys(false).size());
-//
-//        for (String key : config.getConfigurationSection("pets").getKeys(false)) {
-//            List<String> entitiesID = config.getStringList("pets." + key);
-//            Set<LivingEntity> livingEntities = new HashSet<>();
-//
-//            entitiesID.forEach(entity -> livingEntities.add((LivingEntity) Bukkit.getEntity(UUID.fromString(entity))));
-//
-//            pets.put(UUID.fromString(key), livingEntities);
-//
-//        }
 
         for (String key : config.getConfigurationSection("food").getKeys(false)) {
             ConfigurationSection configurationSection = config.getConfigurationSection("food." + key);

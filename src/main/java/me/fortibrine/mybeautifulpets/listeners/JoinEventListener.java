@@ -1,9 +1,7 @@
 package me.fortibrine.mybeautifulpets.listeners;
 
 import me.fortibrine.mybeautifulpets.MyBeautifulPets;
-import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,14 +22,9 @@ public class JoinEventListener implements Listener {
 
         String uuid = player.getUniqueId().toString();
 
-        List<EntityType> entities = plugin.getSqlManager().getMobs(uuid);
+        Set<Entity> entities = plugin.getSqlManager().getMobs(uuid);
 
-        Location location = player.getLocation();
-
-        Set<LivingEntity> livingEntities = new HashSet<>();
-
-        entities.forEach(entityType -> livingEntities.add((LivingEntity) location.getWorld().spawnEntity(location, entityType)));
-        plugin.getVariableManager().getPets().put(player.getUniqueId(), livingEntities);
+        plugin.getVariableManager().getPets().put(player.getUniqueId(), entities);
     }
 
 }

@@ -1,34 +1,24 @@
 package me.fortibrine.mybeautifulpets;
 
+import io.github.bananapuncher714.nbteditor.NBTEditor;
 import lombok.Getter;
 import me.fortibrine.mybeautifulpets.listeners.InteractEventListener;
 import me.fortibrine.mybeautifulpets.listeners.JoinEventListener;
 import me.fortibrine.mybeautifulpets.listeners.LeaveEventListener;
-import me.fortibrine.mybeautifulpets.nms.*;
-import me.fortibrine.mybeautifulpets.utils.RunnableManager;
-import me.fortibrine.mybeautifulpets.utils.SQLManager;
-import me.fortibrine.mybeautifulpets.utils.VariableManager;
+import me.fortibrine.mybeautifulpets.utils.*;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
+@Getter
 public final class MyBeautifulPets extends JavaPlugin {
 
-    @Getter
     private VariableManager variableManager;
-
-    @Getter
     private RunnableManager runnableManager;
-
-    @Getter
     private SQLManager sqlManager;
-
-    @Getter
-    private NBTManager nbtManager;
-
-    private String sversion;
+    private Base64Manager base64Manager;
 
     @Override
     public void onEnable() {
@@ -40,62 +30,14 @@ public final class MyBeautifulPets extends JavaPlugin {
 
         this.variableManager = new VariableManager(this);
         this.runnableManager = new RunnableManager(this);
-        this.sqlManager = new SQLManager();
-
-        if (!this.setupManager()) {
-            Bukkit.getPluginManager().disablePlugin(this);
-            return;
-        }
+        this.sqlManager = new SQLManager(this);
+        this.base64Manager = new Base64Manager();
 
         Bukkit.getPluginManager().registerEvents(new InteractEventListener(this), this);
         Bukkit.getPluginManager().registerEvents(new JoinEventListener(this), this);
         Bukkit.getPluginManager().registerEvents(new LeaveEventListener(this), this);
 
-        System.out.println(nbtManager.getNBTTagsFromEntity((LivingEntity) Bukkit.getWorld("world").getEntities().get(0)));
     }
 
-    private boolean setupManager() {
 
-        sversion = "N/A";
-
-        try {
-            sversion = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
-        }
-
-        try {
-            nbtManager = new NBTManager(sversion);
-        } catch (ClassNotFoundException exception) {
-            return false;
-        }
-
-        return true;
-
-    }
-
-    @Override
-    public void onDisable() {
-
-//
-//        FileConfiguration config = this.getConfig();
-//
-//        for (Map.Entry<UUID, Set<LivingEntity>> entry : this.variableManager.getPets().entrySet()) {
-//
-//            List<String> entitiesID = new ArrayList<>();
-//            entry.getValue().forEach(entity -> {
-//
-//                if (entity == null) {
-//                    return;
-//                }
-//
-//                entitiesID.add(entity.getUniqueId().toString());
-//            });
-//
-//            config.set("pets." + entry.getKey(), entitiesID);
-//
-//        }
-//
-//        this.saveConfig();
-    }
 }

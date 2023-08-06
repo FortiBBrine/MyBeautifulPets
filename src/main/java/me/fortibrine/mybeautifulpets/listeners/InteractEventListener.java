@@ -41,21 +41,21 @@ public class InteractEventListener implements Listener {
 
             VariableManager variableManager = plugin.getVariableManager();
 
-            for (Set<LivingEntity> entities : variableManager.getPets().values())  {
-                if (entities.contains(livingEntity)) {
+            for (Set<Entity> entities : variableManager.getPets().values())  {
+                if (entities.contains(entity)) {
                     return;
                 }
             }
             if (variableManager.getPets().containsKey(player.getUniqueId())) {
-                variableManager.getPets().get(player.getUniqueId()).add(livingEntity);
+                variableManager.getPets().get(player.getUniqueId()).add(entity);
             } else {
 
-                Set<LivingEntity> pets = new HashSet<>();
-                pets.add(livingEntity);
+                Set<Entity> pets = new HashSet<>();
+                pets.add(entity);
 
                 variableManager.getPets().put(player.getUniqueId(), pets);
             }
-            plugin.getSqlManager().saveMob(player.getUniqueId().toString(), entity.getType());
+            plugin.getSqlManager().saveMob(player.getUniqueId().toString(), entity);
         } else {
             player.damage(plugin.getConfig().getDouble("damage"));
         }
