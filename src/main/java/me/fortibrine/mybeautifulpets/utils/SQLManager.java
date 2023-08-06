@@ -53,7 +53,7 @@ public class SQLManager implements Closeable {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                entities.add(EntityType.fromName(resultSet.getString(1)))
+                entities.add(EntityType.fromName(resultSet.getString(1)));
             }
 
             resultSet.close();

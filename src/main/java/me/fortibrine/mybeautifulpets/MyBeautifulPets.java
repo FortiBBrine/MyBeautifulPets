@@ -9,6 +9,7 @@ import me.fortibrine.mybeautifulpets.utils.RunnableManager;
 import me.fortibrine.mybeautifulpets.utils.SQLManager;
 import me.fortibrine.mybeautifulpets.utils.VariableManager;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -50,6 +51,7 @@ public final class MyBeautifulPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new JoinEventListener(this), this);
         Bukkit.getPluginManager().registerEvents(new LeaveEventListener(this), this);
 
+        System.out.println(nbtManager.getNBTTagsFromEntity((LivingEntity) Bukkit.getWorld("world").getEntities().get(0)));
     }
 
     private boolean setupManager() {
@@ -62,29 +64,13 @@ public final class MyBeautifulPets extends JavaPlugin {
             return false;
         }
 
-        if (sversion.equals("v1_19_R2")) {
-            nbtManager = new NBTManager_v1_19_R2();
-        }
-        if (sversion.equals("v1_18_R2")) {
-            nbtManager = new NBTManager_v1_18_R2();
-        }
-        if (sversion.equals("v1_17_R1")) {
-            nbtManager = new NBTManager_v1_17_R1();
-        }
-        if (sversion.equals("v1_16_R3")) {
-            nbtManager = new NBTManager_v1_16_R3();
-        }
-        if (sversion.equals("v1_15_R1")) {
-            nbtManager = new NBTManager_v1_15_R1();
-        }
-        if (sversion.equals("v1_14_R1")) {
-            nbtManager = new NBTManager_v1_14_R1();
-        }
-        if (sversion.equals("v1_13_R2")) {
-            nbtManager = new NBTManager_v1_13_R2();
+        try {
+            nbtManager = new NBTManager(sversion);
+        } catch (ClassNotFoundException exception) {
+            return false;
         }
 
-        return nbtManager != null;
+        return true;
 
     }
 

@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
+import java.util.Set;
 
 public class LeaveEventListener implements Listener {
 
@@ -18,9 +19,9 @@ public class LeaveEventListener implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
-        List<LivingEntity> entities = plugin.getVariableManager().getPets(event.getPlayer().getUniqueId());
+        Set<LivingEntity> entities = plugin.getVariableManager().getPets().get(event.getPlayer().getUniqueId());
         entities.forEach(Entity::remove);
-        plugin.getVariableManager().getPets().remove(event.getPlayer());
+//        plugin.getVariableManager().getPets().remove(event.getPlayer());
     }
 
 }
