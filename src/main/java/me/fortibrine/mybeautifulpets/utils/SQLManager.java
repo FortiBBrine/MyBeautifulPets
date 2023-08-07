@@ -7,10 +7,13 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 
 import java.io.Closeable;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,7 +50,11 @@ public class SQLManager implements Closeable {
 
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO entities(uuid, entity) VALUES(?,?) ");
             preparedStatement.setString(1, uuid);
-            preparedStatement.setString(2, this.base64Manager.encode(NBTEditor.getNBTCompound(entity).toJson()));
+
+            String json = NBTEditor.getNBTCompound(entity).toJson();
+//            json = this.base64Manager.encode(json);
+
+            preparedStatement.setString(2, json);
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
@@ -66,9 +73,10 @@ public class SQLManager implements Closeable {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String jsonBase64 = resultSet.getString(1);
+//                String jsonBase64 = resultSet.getString(1);
+                String json = resultSet.getString("entity");
 
-                String json = this.base64Manager.decode(jsonBase64);
+//                String json = this.base64Manager.decode(jsonBase64);
 
                 World world = Bukkit.getWorld("world");
 

@@ -1,13 +1,12 @@
 package me.fortibrine.mybeautifulpets;
 
-import io.github.bananapuncher714.nbteditor.NBTEditor;
 import lombok.Getter;
+import me.fortibrine.mybeautifulpets.listeners.EntityDropEventListener;
 import me.fortibrine.mybeautifulpets.listeners.InteractEventListener;
 import me.fortibrine.mybeautifulpets.listeners.JoinEventListener;
 import me.fortibrine.mybeautifulpets.listeners.LeaveEventListener;
 import me.fortibrine.mybeautifulpets.utils.*;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -36,6 +35,7 @@ public final class MyBeautifulPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InteractEventListener(this), this);
         Bukkit.getPluginManager().registerEvents(new JoinEventListener(this), this);
         Bukkit.getPluginManager().registerEvents(new LeaveEventListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDropEventListener(this), this);
 
     }
 

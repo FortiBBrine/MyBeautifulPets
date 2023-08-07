@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
@@ -28,12 +29,22 @@ public class InteractEventListener implements Listener {
         }
 
         LivingEntity livingEntity = (LivingEntity) entity;
-
         Random random = new Random();
-
         Player player = event.getPlayer();
+        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
 
-        if (!plugin.getVariableManager().getFoodItems().contains(player.getInventory().getItemInMainHand())) return;
+        boolean isFoodItem = false;
+
+        for (ItemStack item : plugin.getVariableManager().getFoodItems()) {
+            if (itemInMainHand.isSimilar(item)) {
+                isFoodItem = true;
+                break;
+            }
+        }
+
+        if (!isFoodItem) return;
+
+        itemInMainHand.setAmount(itemInMainHand.getAmount() - 1);
 
         if (random.nextInt(100) < plugin.getConfig().getInt("chance")) {
 
