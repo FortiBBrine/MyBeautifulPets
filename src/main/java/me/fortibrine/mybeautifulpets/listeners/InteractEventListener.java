@@ -1,6 +1,7 @@
 package me.fortibrine.mybeautifulpets.listeners;
 
 import me.fortibrine.mybeautifulpets.MyBeautifulPets;
+import me.fortibrine.mybeautifulpets.pets.Pet;
 import me.fortibrine.mybeautifulpets.utils.VariableManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -52,21 +53,25 @@ public class InteractEventListener implements Listener {
 
             VariableManager variableManager = plugin.getVariableManager();
 
-            for (Set<Entity> entities : variableManager.getPets().values())  {
-                if (entities.contains(entity)) {
-                    return;
+            for (Set<Pet> entities : variableManager.getPets().values())  {
+                for (Pet pet : entities) {
+                    if (pet.getEntity().equals(entity)) {
+                        return;
+                    }
                 }
             }
+
+            Pet pet = new Pet(UUID.randomUUID(), entity);
             if (variableManager.getPets().containsKey(player.getUniqueId())) {
-                variableManager.getPets().get(player.getUniqueId()).add(entity);
+                variableManager.getPets().get(player.getUniqueId()).add(pet);
             } else {
 
-                Set<Entity> pets = new HashSet<>();
-                pets.add(entity);
+                Set<Pet> pets = new HashSet<>();
+                pets.add(pet);
 
                 variableManager.getPets().put(player.getUniqueId(), pets);
             }
-            plugin.getSqlManager().saveMob(player.getUniqueId().toString(), entity);
+
         } else {
             player.damage(plugin.getConfig().getDouble("damage"));
         }

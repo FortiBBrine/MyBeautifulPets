@@ -1,7 +1,7 @@
 package me.fortibrine.mybeautifulpets.listeners;
 
 import me.fortibrine.mybeautifulpets.MyBeautifulPets;
-import org.bukkit.entity.Entity;
+import me.fortibrine.mybeautifulpets.pets.Pet;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +22,7 @@ public class JoinEventListener implements Listener {
 
         String uuid = player.getUniqueId().toString();
 
-        Set<Entity> entities = plugin.getSqlManager().getMobs(uuid);
+        Set<Pet> entities = plugin.getSqlManager().getMobs(uuid);
 
         plugin.getVariableManager().getPets().put(player.getUniqueId(), entities);
     }

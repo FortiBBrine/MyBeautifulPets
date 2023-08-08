@@ -1,6 +1,7 @@
 package me.fortibrine.mybeautifulpets.listeners;
 
 import me.fortibrine.mybeautifulpets.MyBeautifulPets;
+import me.fortibrine.mybeautifulpets.pets.Pet;
 import me.fortibrine.mybeautifulpets.utils.VariableManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -22,11 +23,12 @@ public class EntityDropEventListener implements Listener {
         LivingEntity livingEntity = event.getEntity();
         Entity entity = livingEntity;
 
-        for (Set<Entity> entities : variableManager.getPets().values()) {
-            if (entities.contains(entity)) {
-                entities.remove(entity);
-                event.getDrops().clear();
-                break;
+        for (Set<Pet> entities : variableManager.getPets().values()) {
+            for (Pet pet : entities) {
+                if (pet.getEntity().equals(entity)) {
+                    entities.remove(pet);
+                    event.getDrops().clear();
+                }
             }
         }
 

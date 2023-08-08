@@ -29,8 +29,8 @@ public final class MyBeautifulPets extends JavaPlugin {
 
         this.variableManager = new VariableManager(this);
         this.runnableManager = new RunnableManager(this);
-        this.sqlManager = new SQLManager(this);
         this.base64Manager = new Base64Manager();
+        this.sqlManager = new SQLManager(this);
 
         Bukkit.getPluginManager().registerEvents(new InteractEventListener(this), this);
         Bukkit.getPluginManager().registerEvents(new JoinEventListener(this), this);

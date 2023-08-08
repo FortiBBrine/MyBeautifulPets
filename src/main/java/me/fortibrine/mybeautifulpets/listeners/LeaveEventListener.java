@@ -1,9 +1,10 @@
 package me.fortibrine.mybeautifulpets.listeners;
 
 import me.fortibrine.mybeautifulpets.MyBeautifulPets;
+import me.fortibrine.mybeautifulpets.pets.Pet;
 import me.fortibrine.mybeautifulpets.utils.VariableManager;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -20,12 +21,17 @@ public class LeaveEventListener implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
-        UUID uuid = event.getPlayer().getUniqueId();
+        Player player = event.getPlayer();
+
+        UUID uuid = player.getUniqueId();
         VariableManager variableManager = plugin.getVariableManager();
-        Set<Entity> entities = variableManager.getPets().get(uuid);
+        Set<Pet> entities = variableManager.getPets().get(uuid);
+
+        variableManager.getPets().remove(uuid);
 
         entities.forEach(entity -> {
-            ((LivingEntity) entity).setHealth(0);
+            ((LivingEntity) entity.getEntity()).setHealth(0);
+            plugin.getSqlManager().saveMob(player.getUniqueId().toString(), entity);
         });
     }
 

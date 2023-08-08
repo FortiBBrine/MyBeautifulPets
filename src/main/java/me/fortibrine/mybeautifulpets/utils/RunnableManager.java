@@ -1,6 +1,7 @@
 package me.fortibrine.mybeautifulpets.utils;
 
 import me.fortibrine.mybeautifulpets.MyBeautifulPets;
+import me.fortibrine.mybeautifulpets.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
@@ -22,16 +23,18 @@ public class RunnableManager {
     }
 
     private void teleportPet() {
-        Map<UUID, Set<Entity>> pets = variableManager.getPets();
+        Map<UUID, Set<Pet>> pets = variableManager.getPets();
 
-        for (Map.Entry<UUID, Set<Entity>> entry : pets.entrySet()) {
+        for (Map.Entry<UUID, Set<Pet>> entry : pets.entrySet()) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(entry.getKey());
 
             if (!player.isOnline()) continue;
 
             Player onlinePlayer = (Player) player;
 
-            for (Entity entity : entry.getValue()) {
+            for (Pet pet : entry.getValue()) {
+
+                Entity entity = pet.getEntity();
 
                 if (entity == null) {
                     continue;
