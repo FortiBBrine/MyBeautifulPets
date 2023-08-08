@@ -1,7 +1,6 @@
 package me.fortibrine.mybeautifulpets;
 
 import lombok.Getter;
-import me.fortibrine.mybeautifulpets.listeners.EntityDropEventListener;
 import me.fortibrine.mybeautifulpets.listeners.InteractEventListener;
 import me.fortibrine.mybeautifulpets.listeners.JoinEventListener;
 import me.fortibrine.mybeautifulpets.listeners.LeaveEventListener;
@@ -35,7 +34,6 @@ public final class MyBeautifulPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InteractEventListener(this), this);
         Bukkit.getPluginManager().registerEvents(new JoinEventListener(this), this);
         Bukkit.getPluginManager().registerEvents(new LeaveEventListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityDropEventListener(this), this);
 
     }
 
